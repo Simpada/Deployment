@@ -42,9 +42,11 @@ public class WebShopServer {
         } else {
             context.setBaseResource(resources);
         }
-        
+
+
         var apiServlet = context.addServlet(ServletContainer.class, "/api/*");
         apiServlet.setInitParameter("jersey.config.server.provider.packages", "no.kristiania.deployment");
+
 
         context.addFilter(new FilterHolder(new webShopFilter()), "/*", EnumSet.of(DispatcherType.REQUEST));
 
