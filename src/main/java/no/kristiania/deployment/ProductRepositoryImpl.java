@@ -5,9 +5,12 @@ import java.util.List;
 
 public class ProductRepositoryImpl implements ProductRepository {
 
-    private final List<Product> products = new ArrayList<>();
+    private final List<Product> products = new ArrayList<>(
+            sampleProducts()
+    );
 
-    ProductRepositoryImpl (){
+    private static List<Product> sampleProducts (){
+        List<Product> products = new ArrayList<>();
         var product = new Product("A fork", ProductCategory.FORKS, 4090);
         var product2 = new Product("Another fork", ProductCategory.ALSO_FORKS, 13);
         var product3 = new Product("A pretty fork", ProductCategory.A_FORK, 9001);
@@ -16,6 +19,7 @@ public class ProductRepositoryImpl implements ProductRepository {
         products.add(product2);
         products.add(product3);
         products.add(product4);
+        return products;
     }
 
     @Override

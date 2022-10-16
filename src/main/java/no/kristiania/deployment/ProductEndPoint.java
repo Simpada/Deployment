@@ -12,15 +12,14 @@ import jakarta.ws.rs.core.Response;
 
 
 import java.io.StringReader;
-import java.util.ArrayList;
-import java.util.List;
 
 @Path("/products")
 public class ProductEndPoint {
 
-/*    @Inject
-    private ProductRepository productRepository;*/
+    @Inject
+    private ProductRepository productRepository;
 
+    /*
     private static final List<Product> products = new ArrayList<>();
     static {
         var product = new Product("A fork", ProductCategory.FORKS, 4090);
@@ -32,6 +31,7 @@ public class ProductEndPoint {
         products.add(product3);
         products.add(product4);
     }
+     */
 
 
     @GET
@@ -39,7 +39,7 @@ public class ProductEndPoint {
     public Response getProducts() {
 
         var result = Json.createArrayBuilder();
-        for (var product : products) {
+        for (var product : productRepository.listAll()) {
             result.add(Json.createObjectBuilder()
                     .add("name", product.name())
                     .add("category", product.category().toString())
@@ -58,7 +58,7 @@ public class ProductEndPoint {
         if (category == null) return Response.status(400).build();
         int price = Integer.parseInt(obj.getString("price"));
 
-        products.add(new Product(name, category, price));
+        productRepository.save(new Product(name, category, price));
 
         return Response.ok().build();
     }
