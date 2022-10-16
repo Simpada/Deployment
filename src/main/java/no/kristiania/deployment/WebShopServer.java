@@ -4,6 +4,7 @@ import jakarta.servlet.DispatcherType;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.DefaultServlet;
 import org.eclipse.jetty.servlet.FilterHolder;
+import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.util.resource.Resource;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.glassfish.jersey.servlet.ServletContainer;
@@ -29,7 +30,7 @@ public class WebShopServer {
         var context = new WebAppContext();
         context.setContextPath("/");
 
-        var resources = Resource.newClassPathResource("/www");
+        var resources = Resource.newClassPathResource("/webShop");
 
         var directory = new File(resources.getFile().getAbsoluteFile()
                 .toString()
@@ -45,6 +46,13 @@ public class WebShopServer {
         }
         
         var apiServlet = context.addServlet(ServletContainer.class, "/api/*");
+
+        /*
+        context.addServlet(new ServletHolder(new ServletContainer(
+                new WebStoreConfig()
+        )), "/*");
+         */
+
         apiServlet.setInitParameter("jersey.config.server.provider.packages", "no.kristiania.deployment");
 
         context.addFilter(new FilterHolder(new webShopFilter()), "/*", EnumSet.of(DispatcherType.REQUEST));
@@ -53,12 +61,14 @@ public class WebShopServer {
         return context;
     }
 
+    public URL getUrl() throws MalformedURLException {
+        return server.getURI().toURL();
+    }
+
     public void start() throws Exception {
         server.start();
         log.info("Started server at {}", getUrl());
     }
 
-    public URL getUrl() throws MalformedURLException {
-        return server.getURI().toURL();
-    }
+
 }

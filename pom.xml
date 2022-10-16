@@ -77,7 +77,7 @@
         <dependency>
             <groupId>org.logevents</groupId>
             <artifactId>logevents</artifactId>
-            <version>0.3.4</version>
+            <version>0.4.1</version>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
@@ -99,6 +99,12 @@
             <artifactId>parsson</artifactId>
             <version>1.1.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-json-binding</artifactId>
+            <version>3.0.8</version>
+        </dependency>
+
     </dependencies>
     <properties>
         <maven.compiler.source>17</maven.compiler.source>

@@ -1,10 +1,13 @@
 package no.kristiania.deployment;
 
+import jakarta.inject.Inject;
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 
@@ -14,6 +17,9 @@ import java.util.List;
 
 @Path("/products")
 public class ProductEndPoint {
+
+/*    @Inject
+    private ProductRepository productRepository;*/
 
     private static final List<Product> products = new ArrayList<>();
     static {
@@ -29,6 +35,7 @@ public class ProductEndPoint {
 
 
     @GET
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getProducts() {
 
         var result = Json.createArrayBuilder();

@@ -37,7 +37,6 @@ public class WebShopServerTest {
         assertThat(connection.getInputStream())
                 .asString(StandardCharsets.UTF_8)
                 .contains("<title>Mimpada's WebStore</title>");
-
     }
 
     @Test
@@ -72,8 +71,8 @@ public class WebShopServerTest {
                 .as(postConnection.getResponseCode() + " " + postConnection.getResponseMessage() + " for " + postConnection.getURL())
                 .isEqualTo(200);
 
-        var connection = getConnection("/api/products");
-        assertThat(connection.getInputStream())
+        var getConnection = getConnection("/api/products");
+        assertThat(getConnection.getInputStream())
                 .asString(StandardCharsets.UTF_8)
                 .contains("\"name\":\"Archaon The Everchosen\"");
     }
@@ -97,8 +96,8 @@ public class WebShopServerTest {
                 .as(postConnection.getResponseCode() + " " + postConnection.getResponseMessage() + " for " + postConnection.getURL())
                 .isEqualTo(400);
 
-        var connection = getConnection("/api/products");
-        assertThat(connection.getInputStream())
+        var getConnection = getConnection("/api/products");
+        assertThat(getConnection.getInputStream())
                 .asString(StandardCharsets.UTF_8)
                 .doesNotContain("\"name\":\"Github Fork\"");
     }
