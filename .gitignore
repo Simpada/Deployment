@@ -3,3 +3,4 @@
 *.iml
 target/
 /src/main/resources/webShop/
+/dependency-reduced-pom.xml
